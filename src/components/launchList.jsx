@@ -1,12 +1,17 @@
-function LaunchList(props){
+function LaunchList(props) {
 
-    return(
+    return (
         <aside className="aside" id="launchesContainer">
-            <ul>
-                {props.launches.map(launch=>{
-                    return <li key={launch.id}>{launch.name}</li>
-                })}
-            </ul>
+            <h3>Launches</h3>
+            <div id="listContainer">
+
+
+                <ul>
+                    {props.launches.map(launch => {
+                        return <li key={launch.id}>{launch.name}</li>
+                    })}
+                </ul>
+            </div>
         </aside>
     )
 }

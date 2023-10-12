@@ -1,11 +1,17 @@
-.main{
+.main {
     display: flex;
 }
 
-.aside{
+.aside {
     flex-grow: 0.3;
 }
 
-.mapContainer{
+.content {
     flex-grow: 0.7;
+}
+#listContainer{
+    height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+    border: black 1px solid;
 }
