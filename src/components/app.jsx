@@ -10,8 +10,8 @@ function App(){
     useEffect(()=>{
         spacex.launches().then(data =>{
             setLaunches(data)
-        },[])
-    })
+        })
+    },[])
 
     return(
         <main className='main'>
