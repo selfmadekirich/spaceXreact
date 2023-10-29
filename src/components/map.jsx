@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import * as Geo from "../geo.json";
 import {useRef, useEffect} from "react";
 
+
 function Map(props){
     const width = 1000;
     const height = 600;
@@ -12,7 +13,10 @@ function Map(props){
         left: 100
     };
     const containerRef = useRef(null);
-    useEffect(()=> { const svg = d3.select(containerRef.current).append("svg");
+    useEffect(()=> {
+        const svg = d3.select(containerRef.current).select("svg").empty() ?
+                        d3.select(containerRef.current).append("svg") : d3.select(containerRef.current).select("svg")
+        
         svg.selectAll("*").remove();
         svg.attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom )
@@ -32,6 +36,28 @@ function Map(props){
             .attr("class", "topo")
             .attr("d", d3.geoPath().projection(projection))
             .style("opacity", .7)
+
+           
+            const d = {
+                "features": []};
+            
+            
+            props.launchPads.forEach(launchpad => {
+                d.features.push({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [launchpad.longitude, launchpad.latitude ]
+            }})});
+            
+            g.append("g")
+            .selectAll("path")
+            .data(d.features) 
+            .enter()
+            .append("path")
+            .attr("d", d3.geoPath().projection(projection)) 
+            .attr('fill','red')
+
         const zoom = d3.zoom()
             .scaleExtent([1, 8])
             .on('zoom', function(event) {
@@ -39,7 +65,7 @@ function Map(props){
                     .attr('transform', event.transform);
             });
 
-        svg.call(zoom); }, []);
+        svg.call(zoom); }, [props.launchPads]);
 
 
 
