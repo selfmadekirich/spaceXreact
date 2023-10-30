@@ -45,6 +45,7 @@ function Map(props){
             props.launchPads.forEach(launchpad => {
                 d.features.push({
             "type": "Feature",
+            "id" : launchpad.id,
             "geometry": {
                 "type": "Point",
                 "coordinates": [launchpad.longitude, launchpad.latitude ]
@@ -55,7 +56,8 @@ function Map(props){
             .data(d.features) 
             .enter()
             .append("path")
-            .attr("d", d3.geoPath().projection(projection)) 
+            .attr("d", d3.geoPath().projection(projection))
+            .attr("id",(v) => v.id)
             .attr('fill','red')
 
         const zoom = d3.zoom()
